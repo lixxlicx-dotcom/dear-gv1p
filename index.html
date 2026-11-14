@@ -5,232 +5,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050000">
 <title>Dear GV1P</title>
-
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
- margin:0;background:#050505;color:white;
- font-family:Arial,sans-serif;overflow-x:hidden;
-}
-body.shake{
- animation:screenShake 0.18s cubic-bezier(.36,.07,.19,.97) both;
-}
-@keyframes screenShake{
- 0%,100%{transform:translate(0,0) rotate(0deg)}
- 20%{transform:translate(-5px,4px) rotate(-0.4deg)}
- 40%{transform:translate(5px,-4px) rotate(0.4deg)}
- 60%{transform:translate(-4px,-2px) rotate(-0.2deg)}
- 80%{transform:translate(3px,3px) rotate(0.2deg)}
-}
-body:before{
- content:"";position:fixed;inset:0;
- background:radial-gradient(circle at 50% 20%,#350000 0%,transparent 55%),linear-gradient(#080000,#000);
- z-index:-2;
-}
-body:after{
- content:"";position:fixed;top:0;left:0;right:0;height:14px;
- background:linear-gradient(180deg,#4a0000 0%,#9e0000 65%,transparent 100%);
- box-shadow:0 4px 18px #7a0000aa;
- z-index:4;pointer-events:none;
-}
-header{
- text-align:center;padding:65px 15px 35px;
- animation:bounceIn 1s ease-out;
-}
+body{margin:0;background:#050505;color:white;font-family:Arial,sans-serif;overflow-x:hidden}
+body.shake{animation:screenShake 0.18s cubic-bezier(.36,.07,.19,.97) both}
+@keyframes screenShake{0%,100%{transform:translate(0,0)}25%{transform:translate(-5px,4px)}50%{transform:translate(5px,-4px)}75%{transform:translate(-3px,2px)}}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#350000 0%,transparent 55%),linear-gradient(#080000,#000);z-index:-2}
+body:after{content:"";position:fixed;top:0;left:0;right:0;height:14px;background:linear-gradient(180deg,#4a0000 0%,#9e0000 65%,transparent 100%);box-shadow:0 4px 18px #7a0000aa;z-index:4;pointer-events:none}
+header{text-align:center;padding:65px 15px 35px;animation:bounceIn 1s ease-out}
 h1{color:#e00000;font-size:clamp(35px,8vw,55px);letter-spacing:5px;text-shadow:0 0 15px red,0 0 35px #700}
 .subtitle{color:#aaa;letter-spacing:2px;font-size:12px}
-
-@keyframes bounceIn{
- 0%{opacity:0;transform:translateY(80px) scale(0.88)}
- 55%{opacity:1;transform:translateY(-18px) scale(1.03)}
- 75%{transform:translateY(8px) scale(0.99)}
- 90%{transform:translateY(-4px) scale(1.01)}
- 100%{opacity:1;transform:translateY(0) scale(1)}
-}
-
-section{
- width:92%;max-width:600px;margin:22px auto;padding:22px;
- background:#100909;border:1px solid #650000;
- border-radius:18px;box-shadow:0 0 20px #50000044;
- position:relative;z-index:2;
- opacity:1;
-}
-section.show{
- animation:bounceIn 0.95s ease-out forwards;
-}
-
+@keyframes bounceIn{0%{opacity:0;transform:translateY(80px) scale(0.88)}55%{opacity:1;transform:translateY(-18px) scale(1.03)}75%{transform:translateY(8px) scale(0.99)}90%{transform:translateY(-4px) scale(1.01)}100%{opacity:1;transform:translateY(0) scale(1)}}
+section{width:92%;max-width:600px;margin:22px auto;padding:22px;background:#100909;border:1px solid #650000;border-radius:18px;box-shadow:0 0 20px #50000044;position:relative;z-index:2;opacity:1}
+section.show{animation:bounceIn 0.95s ease-out forwards}
 h2{color:#e00000;font-size:20px}
 p{color:#ccc;line-height:1.6}
-button{
- background:#a00000;color:white;border:1px solid #e00000;
- padding:12px 20px;border-radius:10px;cursor:pointer;
- margin:5px;font-weight:bold;
-}
+button{background:#a00000;color:white;border:1px solid #e00000;padding:12px 20px;border-radius:10px;cursor:pointer;margin:5px;font-weight:bold}
 button:active{transform:scale(.96)}
 .center{text-align:center}
-
-/* TURNTABLE */
-.turntable{
- background:linear-gradient(145deg,#303030,#090909);
- padding:20px;border:3px solid #555;
- border-radius:22px;box-shadow:0 12px 30px #000;
-}
-.lid{
- background:linear-gradient(135deg,#ffffff20,#ffffff03);
- border:3px solid #888;border-radius:16px;
- padding:20px;box-shadow:inset 0 0 30px #aaa4;
-}
-.deck{
- width:190px;height:190px;margin:auto;border-radius:50%;
- background:repeating-radial-gradient(circle,#111 0 4px,#333 5px 6px);
- border:8px solid #444;display:grid;place-items:center;
- position:relative;animation:spin 5s linear infinite;
- animation-play-state:paused;
-}
+.turntable{background:linear-gradient(145deg,#303030,#090909);padding:20px;border:3px solid #555;border-radius:22px;box-shadow:0 12px 30px #000}
+.lid{background:linear-gradient(135deg,#ffffff20,#ffffff03);border:3px solid #888;border-radius:16px;padding:20px;box-shadow:inset 0 0 30px #aaa4}
+.deck{width:190px;height:190px;margin:auto;border-radius:50%;background:repeating-radial-gradient(circle,#111 0 4px,#333 5px 6px);border:8px solid #444;display:grid;place-items:center;position:relative;animation:spin 5s linear infinite;animation-play-state:paused}
 .deck.playing{animation-play-state:running}
-.deck img{
- width:85px;height:85px;object-fit:cover;
- border-radius:50%;border:4px solid #a00000;
- image-orientation:from-image;
-}
-.arm{
- position:absolute;width:85px;height:7px;background:#aaa;
- right:-8px;top:40px;transform:rotate(45deg);
- border-radius:10px;
-}
+.deck img{width:85px;height:85px;object-fit:cover;border-radius:50%;border:4px solid #a00000;image-orientation:from-image}
+.arm{position:absolute;width:85px;height:7px;background:#aaa;right:-8px;top:40px;transform:rotate(45deg);border-radius:10px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* PHOTO SINGLE */
 .gallery{display:flex;justify-content:center}
-.gallery img{
- width:100%;max-width:340px;height:360px;object-fit:cover;
- border-radius:14px;border:1px solid #900;
- image-orientation:from-image;
-}
-
-/* GIFS */
+.gallery img{width:100%;max-width:340px;height:360px;object-fit:cover;border-radius:14px;border:1px solid #900;image-orientation:from-image}
 .gifs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .gif{overflow:hidden;border-radius:13px;background:#200909;border:1px solid #800}
 .gif img{width:100%;height:160px;object-fit:cover;display:block;animation:wiggle 1.5s infinite}
-@keyframes wiggle{
- 0%,100%{transform:rotate(-2deg)}
- 50%{transform:rotate(2deg) scale(1.03)}
-}
-
+@keyframes wiggle{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg) scale(1.03)}}
 #message{white-space:pre-wrap;line-height:1.9;color:#eee;font-size:15px}
-
-/* MONEY */
-.money{
- position:fixed;top:-80px;z-index:1;
- pointer-events:none;font-size:30px;
- animation:fall linear forwards;
-}
-@keyframes fall{
- to{transform:translateY(115vh) rotate(800deg);opacity:0}
-}
-
-/* EFEK DARAH REALISTIS */
-.blood{
- position:fixed;top:-10px;z-index:3;pointer-events:none;
- width:var(--width);height:var(--height);left:var(--left);
- background:radial-gradient(circle at 35% 88%, #ff2a2a 0%, #a30000 35%, #4d0000 85%, #2b0000 100%);
- border-radius:40% 40% 50% 50% / 15% 15% 85% 85%;
- box-shadow:inset -2px -3px 6px #2a0000, inset 2px 2px 4px #ff666655, 0 4px 10px #660000aa;
- filter:blur(0.3px);
- animation:realisticDrip var(--speed) cubic-bezier(0.55, 0.05, 0.85, 0.35) forwards;
-}
-.blood::after{
- content:"";position:absolute;bottom:14%;left:26%;
- width:28%;height:18%;border-radius:50%;
- background:rgba(255,180,180,0.45);
-}
-@keyframes realisticDrip{
- 0%{transform:scaleY(0.15) scaleX(1.3);transform-origin:top;opacity:0.95}
- 35%{transform:scaleY(1.15) scaleX(0.95);transform-origin:top;opacity:1}
- 60%{transform:translateY(15vh) scaleY(1) scaleX(1);opacity:1}
- 100%{transform:translateY(108vh) scaleY(1.3) scaleX(0.85);opacity:0}
-}
-
-/* EFEK TEMBAKAN & KACA PECAH */
-.muzzle-flash{
- position:fixed;inset:0;pointer-events:none;z-index:9;
- background:radial-gradient(circle at var(--fx) var(--fy), rgba(255,235,170,0.5) 0%, rgba(255,110,20,0.2) 35%, transparent 70%);
- animation:flashOut 0.14s ease-out forwards;
-}
+.money{position:fixed;top:-80px;z-index:1;pointer-events:none;font-size:30px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(800deg);opacity:0}}
+.blood{position:fixed;top:-10px;z-index:3;pointer-events:none;width:var(--width);height:var(--height);left:var(--left);background:radial-gradient(circle at 35% 88%,#ff2a2a 0%,#a30000 35%,#4d0000 85%,#2b0000 100%);border-radius:40% 40% 50% 50%/15% 15% 85% 85%;box-shadow:inset -2px -3px 6px #2a0000,inset 2px 2px 4px #ff666655,0 4px 10px #660000aa;animation:realisticDrip var(--speed) cubic-bezier(0.55,0.05,0.85,0.35) forwards}
+@keyframes realisticDrip{0%{transform:scaleY(0.15) scaleX(1.3);transform-origin:top;opacity:0.95}35%{transform:scaleY(1.15) scaleX(0.95);transform-origin:top;opacity:1}60%{transform:translateY(15vh) scaleY(1) scaleX(1);opacity:1}100%{transform:translateY(108vh) scaleY(1.3) scaleX(0.85);opacity:0}}
+.muzzle-flash{position:fixed;inset:0;pointer-events:none;z-index:9;background:radial-gradient(circle at var(--fx) var(--fy),rgba(255,235,170,0.55) 0%,rgba(255,110,20,0.22) 35%,transparent 70%);animation:flashOut 0.14s ease-out forwards}
 @keyframes flashOut{0%{opacity:1}100%{opacity:0}}
-
-.bullet-tracer{
- position:fixed;height:3px;width:190px;
- pointer-events:none;z-index:8;border-radius:50%;
- background:linear-gradient(90deg, transparent 0%, rgba(255,140,0,0.4) 40%, #ffea80 85%, #ffffff 100%);
- box-shadow:0 0 12px #ff9900, 0 0 24px #ff4500;
- transform-origin:right center;
- transition:transform 0.075s linear;
-}
-
-.bullet-hole{
- position:fixed;width:220px;height:220px;
- transform:translate(-50%,-50%);
- pointer-events:none;z-index:6;
- animation:crackFade 9s ease-in forwards;
-}
-@keyframes crackFade{
- 0%{opacity:0;transform:translate(-50%,-50%) scale(0.3)}
- 2%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}
- 5%{opacity:1;transform:translate(-50%,-50%) scale(1)}
- 80%{opacity:0.95}
- 100%{opacity:0}
-}
-
-.glass-shard{
- position:fixed;pointer-events:none;z-index:7;
- background:linear-gradient(135deg, rgba(255,255,255,0.85), rgba(190,235,255,0.35));
- border:1px solid rgba(255,255,255,0.7);
- box-shadow:0 0 6px rgba(255,255,255,0.5);
- animation:shardFall var(--dur) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-@keyframes shardFall{
- 0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}
- 100%{transform:translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0.6);opacity:0}
-}
-
-.bullet-spark{
- position:fixed;width:4px;height:4px;border-radius:50%;
- background:#fff2a6;box-shadow:0 0 8px #ff7b00;
- pointer-events:none;z-index:8;
- animation:sparkFly 0.45s ease-out forwards;
-}
-@keyframes sparkFly{
- 0%{transform:translate(0,0) scale(1);opacity:1}
- 100%{transform:translate(var(--sx), var(--sy)) scale(0);opacity:0}
-}
-
+.bullet-tracer{position:fixed;height:3px;width:190px;pointer-events:none;z-index:8;border-radius:50%;background:linear-gradient(90deg,transparent 0%,rgba(255,140,0,0.4) 40%,#ffea80 85%,#fff 100%);box-shadow:0 0 12px #ff9900,0 0 24px #ff4500;transform-origin:right center;transition:transform 0.075s linear}
+.bullet-hole{position:fixed;width:220px;height:220px;transform:translate(-50%,-50%);pointer-events:none;z-index:6;animation:crackFade 9s ease-in forwards}
+@keyframes crackFade{0%{opacity:0;transform:translate(-50%,-50%) scale(0.3)}2%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}5%{opacity:1;transform:translate(-50%,-50%) scale(1)}80%{opacity:0.95}100%{opacity:0}}
+.glass-shard{position:fixed;pointer-events:none;z-index:7;background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(190,235,255,0.35));border:1px solid rgba(255,255,255,0.7);animation:shardFall var(--dur) cubic-bezier(0.25,0.46,0.45,0.94) forwards}
+@keyframes shardFall{0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.6);opacity:0}}
 .footer{text-align:center;padding:35px;color:#777;font-size:12px;letter-spacing:3px}
-@media(max-width:400px){
- .deck{width:165px;height:165px}
- section{padding:17px}
-}
+@media(max-width:400px){.deck{width:165px;height:165px}section{padding:17px}}
 </style>
 </head>
-
 <body>
-
 <header>
  <h1>DEAR GV1P</h1>
  <div class="subtitle">A LITTLE SOMETHING FOR YOU ♡</div>
 </header>
-
 <section>
  <h2>♫ MUSIC</h2>
- <div class="turntable">
-  <div class="lid">
-   <div class="deck" id="record">
-    <img src="IMG_4230.jpeg" alt="Album Cover">
-    <div class="arm"></div>
-   </div>
-  </div>
- </div>
+ <div class="turntable"><div class="lid"><div class="deck" id="record"><img src="IMG_4230.jpeg" alt="Album Cover"><div class="arm"></div></div></div></div>
  <div class="center">
   <h3>YOUR FAVORITE SONG</h3>
   <p>Something special for you.</p>
@@ -238,79 +68,82 @@ button:active{transform:scale(.96)}
   <button onclick="toggleMusic()" id="playButton">▶ PLAY</button>
  </div>
 </section>
-
-<section>
- <h2>📸 PHOTO</h2>
- <div class="gallery">
-  <img src="IMG_4212.jpeg" alt="Photo 1">
- </div>
-</section>
-
-<section>
- <h2>✉ A MESSAGE FOR YOU</h2>
- <div id="message">THANK YOU, BOSS GV1P, FOR SHARING SOME MONEY; I HOPE IT PROVES USEFUL. MAY THINGS BE MADE EASY AND SMOOTH FOR YOU, AND MAY YOU STAY IN GOOD HEALTH. GOD BLESS YOU, GV1P!</div>
-</section>
-
-<section>
- <h2>🎞️ GIFS</h2>
- <div class="gifs">
-  <div class="gif"><img src="IMG_4233.gif" alt="GIF 1"></div>
- </div>
-</section>
-
+<section><h2>📸 PHOTO</h2><div class="gallery"><img src="IMG_4212.jpeg" alt="Photo 1"></div></section>
+<section><h2>✉ A MESSAGE FOR YOU</h2><div id="message">THANK YOU, BOSS GV1P, FOR SHARING SOME MONEY; I HOPE IT PROVES USEFUL. MAY THINGS BE MADE EASY AND SMOOTH FOR YOU, AND MAY YOU STAY IN GOOD HEALTH. GOD BLESS YOU, GV1P!</div></section>
+<section><h2>🎞️ GIFS</h2><div class="gifs"><div class="gif"><img src="IMG_4233.gif" alt="GIF 1"></div></div></section>
 <div class="footer">MADE IN BERLIN</div>
 
 <script>
-const audio=document.getElementById("audio");
-const record=document.getElementById("record");
-const playButton=document.getElementById("playButton");
-
+const audio=document.getElementById("audio"),record=document.getElementById("record"),playButton=document.getElementById("playButton");
 let audioCtx=null;
-function initAudio(){
- if(!audioCtx){
-  const AC=window.AudioContext||window.webkitAudioContext;
-  if(AC)audioCtx=new AC();
- }
- if(audioCtx&&audioCtx.state==="suspended")audioCtx.resume();
-}
+function initAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC()}if(audioCtx&&audioCtx.state==="suspended")audioCtx.resume()}
 document.addEventListener("pointerdown",initAudio,{once:true});
 
-function playGunshotAndGlass(){
+function playGunshot(){
  if(!audioCtx||audioCtx.state!=="running")return;
- const now=audioCtx.currentTime;
- const osc=audioCtx.createOscillator();
- const oscGain=audioCtx.createGain();
- osc.type="triangle";
- osc.frequency.setValueAtTime(160,now);
- osc.frequency.exponentialRampToValueAtTime(28,now+0.18);
- oscGain.gain.setValueAtTime(0.45,now);
- oscGain.gain.exponentialRampToValueAtTime(0.001,now+0.22);
- osc.connect(oscGain);
- oscGain.connect(audioCtx.destination);
- osc.start(now);
- osc.stop(now+0.22);
+ const now=audioCtx.currentTime,osc=audioCtx.createOscillator(),g=audioCtx.createGain();
+ osc.type="triangle";osc.frequency.setValueAtTime(160,now);osc.frequency.exponentialRampToValueAtTime(28,now+0.18);
+ g.gain.setValueAtTime(0.45,now);g.gain.exponentialRampToValueAtTime(0.001,now+0.22);
+ osc.connect(g);g.connect(audioCtx.destination);osc.start(now);osc.stop(now+0.22);
+ const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*0.3,audioCtx.sampleRate),out=buf.getChannelData(0);
+ for(let i=0;i<out.length;i++)out[i]=(Math.random()*2-1)*Math.exp(-i/(audioCtx.sampleRate*0.06));
+ const ns=audioCtx.createBufferSource(),flt=audioCtx.createBiquadFilter(),ng=audioCtx.createGain();
+ ns.buffer=buf;flt.type="bandpass";flt.frequency.setValueAtTime(1200,now);
+ ng.gain.setValueAtTime(0.4,now);ng.gain.exponentialRampToValueAtTime(0.001,now+0.3);
+ ns.connect(flt);flt.connect(ng);ng.connect(audioCtx.destination);ns.start(now);
+ for(let i=0;i<5;i++){const d=0.04+Math.random()*0.15,go=audioCtx.createOscillator(),gg=audioCtx.createGain();go.type="sine";go.frequency.setValueAtTime(2800+Math.random()*3200,now+d);gg.gain.setValueAtTime(0.06,now+d);gg.gain.exponentialRampToValueAtTime(0.0005,now+d+0.09);go.connect(gg);gg.connect(audioCtx.destination);go.start(now+d);go.stop(now+d+0.1)}
+}
 
- const bufferSize=audioCtx.sampleRate*0.35;
- const noiseBuffer=audioCtx.createBuffer(1,bufferSize,audioCtx.sampleRate);
- const output=noiseBuffer.getChannelData(0);
- for(let i=0;i<bufferSize;i++){
-  output[i]=(Math.random()*2-1)*Math.exp(-i/(audioCtx.sampleRate*0.06));
+function toggleMusic(){initAudio();if(audio.paused){audio.play().then(()=>{record.classList.add("playing");playButton.textContent="Ⅱ PAUSE"}).catch(()=>alert("Pastikan file musik sudah di-upload."))}else{audio.pause();record.classList.remove("playing");playButton.textContent="▶ PLAY"}}
+audio.onended=()=>{record.classList.remove("playing");playButton.textContent="▶ PLAY"};
+
+setInterval(()=>{const m=document.createElement("div");m.className="money";m.textContent=["💵","💸","💵","💰"][Math.floor(Math.random()*4)];m.style.left=Math.random()*100+"vw";m.style.animationDuration=(3+Math.random()*4)+"s";document.body.appendChild(m);setTimeout(()=>m.remove(),8000)},180);
+
+setInterval(()=>{const b=document.createElement("div");b.className="blood";const s=7+Math.random()*7,d=2.8+Math.random()*3.2;b.style.setProperty("--left",Math.random()*100+"vw");b.style.setProperty("--width",s+"px");b.style.setProperty("--height",(s*3.2+Math.random()*35)+"px");b.style.setProperty("--speed",d+"s");document.body.appendChild(b);setTimeout(()=>b.remove(),d*1000+200)},220);
+
+function makeCrack(){
+ const ns="http://w3.org",svg=document.createElementNS(ns,"svg");
+ svg.setAttribute("viewBox","0 0 220 220");svg.style.width="100%";svg.style.height="100%";
+ const cx=110,cy=110,rays=15,angs=[],ptsAll=[];
+ for(let i=0;i<rays;i++)angs.push((i*(360/rays)+(Math.random()*14-7))*(Math.PI/180));
+ angs.sort((a,b)=>a-b);
+ angs.forEach(a=>{
+  const len=45+Math.random()*60;let d=`M ${cx} ${cy}`,pts=[{x:cx,y:cy}];
+  for(let s=1;s<=4;s++){const r=(len/4)*s,j=(Math.random()-0.5)*0.18,px=cx+Math.cos(a+j)*r,py=cy+Math.sin(a+j)*r;d+=` L ${px.toFixed(1)} ${py.toFixed(1)}`;pts.push({x:px,y:py})}
+  ptsAll.push(pts);
+  const p=document.createElementNS(ns,"path");p.setAttribute("d",d);p.setAttribute("stroke","rgba(235,248,255,0.8)");p.setAttribute("stroke-width","1.2");p.setAttribute("fill","none");svg.appendChild(p);
+ });
+ for(let ring=1;ring<=3;ring++){
+  let rd="";for(let i=0;i<=ptsAll.length;i++){const pt=ptsAll[i%ptsAll.length][ring];if(pt)rd+=(i===0?"M ":"L ")+`${pt.x.toFixed(1)} ${pt.y.toFixed(1)} `}
+  const rp=document.createElementNS(ns,"path");rp.setAttribute("d",rd);rp.setAttribute("stroke","rgba(210,240,255,0.55)");rp.setAttribute("stroke-width","0.8");rp.setAttribute("fill",ring===1?"rgba(255,255,255,0.08)":"none");svg.appendChild(rp);
  }
- const whiteNoise=audioCtx.createBufferSource();
- whiteNoise.buffer=noiseBuffer;
- const filter=audioCtx.createBiquadFilter();
- filter.type="bandpass";
- filter.frequency.setValueAtTime(1100,now);
- const noiseGain=audioCtx.createGain();
- noiseGain.gain.setValueAtTime(0.4,now);
- noiseGain.gain.exponentialRampToValueAtTime(0.001,now+0.35);
- whiteNoise.connect(filter);
- filter.connect(noiseGain);
- noiseGain.connect(audioCtx.destination);
- whiteNoise.start(now);
+ const h=document.createElementNS(ns,"circle");h.setAttribute("cx",cx);h.setAttribute("cy",cy);h.setAttribute("r",7+Math.random()*4);h.setAttribute("fill","#050202");h.setAttribute("stroke","rgba(255,255,255,0.9)");h.setAttribute("stroke-width","1.5");svg.appendChild(h);
+ return svg;
+}
 
- for(let i=0;i<6;i++){
-  const delay=0.04+Math.random()*0.16;
-  const gOsc=audioCtx.createOscillator();
-  const gGain=audioCtx.createGain();
-  gOsc.type="sine";
+function fireBullet(tx,ty){
+ const w=window.innerWidth,h=window.innerHeight;
+ tx=(typeof tx==="number")?tx:(w*0.15+Math.random()*w*0.7);
+ ty=(typeof ty==="number")?ty:(h*0.15+Math.random()*h*0.7);
+ const sx=Math.random()>0.5?-120:w+120,sy=ty+(Math.random()*240-120),dx=tx-sx,dy=ty-sy,ang=Math.atan2(dy,dx)*(180/Math.PI);
+ const tr=document.createElement("div");tr.className="bullet-tracer";tr.style.left=(sx-190)+"px";tr.style.top=sy+"px";tr.style.transform=`translate(0,0) rotate(${ang}deg)`;document.body.appendChild(tr);
+ requestAnimationFrame(()=>tr.style.transform=`translate(${dx}px,${dy}px) rotate(${ang}deg)`);
+ setTimeout(()=>{
+  tr.remove();
+  const fl=document.createElement("div");fl.className="muzzle-flash";fl.style.setProperty("--fx",tx+"px");fl.style.setProperty("--fy",ty+"px");document.body.appendChild(fl);setTimeout(()=>fl.remove(),150);
+  document.body.classList.remove("shake");void document.body.offsetWidth;document.body.classList.add("shake");
+  playGunshot();
+  const hw=document.createElement("div");hw.className="bullet-hole";hw.style.left=tx+"px";hw.style.top=ty+"px";hw.appendChild(makeCrack());document.body.appendChild(hw);setTimeout(()=>hw.remove(),9100);
+  for(let i=0;i<12;i++){const sh=document.createElement("div");sh.className="glass-shard";sh.style.left=tx+"px";sh.style.top=ty+"px";sh.style.width=(5+Math.random()*9)+"px";sh.style.height=(6+Math.random()*11)+"px";sh.style.clipPath="polygon(20% 0%,100% 30%,70% 100%,0% 70%)";const dur=0.7+Math.random()*0.7;sh.style.setProperty("--tx",((Math.random()-0.5)*170)+"px");sh.style.setProperty("--ty",(180+Math.random()*320)+"px");sh.style.setProperty("--rot",((Math.random()-0.5)*720)+"deg");sh.style.setProperty("--dur",dur+"s");document.body.appendChild(sh);setTimeout(()=>sh.remove(),dur*1000+50)}
+ },80);
+}
+
+function loopFire(){setTimeout(()=>{fireBullet();if(Math.random()>0.65)setTimeout(()=>fireBullet(),190);loopFire()},2200+Math.random()*3000)}
+setTimeout(()=>fireBullet(),800);loopFire();
+document.addEventListener("click",e=>{if(e.target.tagName!=="BUTTON")fireBullet(e.clientX,e.clientY)});
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("show",e.isIntersecting)),{threshold:0.12});
+document.querySelectorAll("section").forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
