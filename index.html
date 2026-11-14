@@ -18,13 +18,118 @@ body:before{
  background:radial-gradient(circle at 50% 20%,#350000 0%,transparent 55%),linear-gradient(#080000,#000);
  z-index:-2;
 }
-/* GENANGAN DARAH DI ATAS LAYAR */
 body:after{
  content:"";position:fixed;top:0;left:0;right:0;height:14px;
  background:linear-gradient(180deg,#4a0000 0%,#9e0000 65%,transparent 100%);
  box-shadow:0 4px 18px #7a0000aa;
  z-index:3;pointer-events:none;
 }
+
+#introMouthScreen{
+ position:fixed;inset:0;z-index:9999;
+ background:radial-gradient(circle at 50% 42%, #240000 0%, #050000 80%);
+ display:flex;flex-direction:column;
+ align-items:center;justify-content:center;
+ transition:opacity 0.9s ease, transform 0.9s ease;
+ padding:20px;
+}
+#introMouthScreen.unlock{
+ opacity:0;
+ transform:scale(1.15);
+ pointer-events:none;
+}
+
+.mouth-wrapper{
+ width:340px;max-width:94vw;
+ filter:drop-shadow(0 0 28px rgba(255, 0, 0, 0.5));
+ animation:mouthFloat 3s ease-in-out infinite;
+}
+@keyframes mouthFloat{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-6px)}
+}
+
+/* ANIMASI TANGAN & BIBIR BUKA TUTUP 5X LALU BERHENTI TERBUKA */
+.upper-pull{
+ animation:pullUpper 0.8s ease-in-out 5 forwards;
+ transform-origin:center;
+}
+.lower-pull{
+ animation:pullLower 0.8s ease-in-out 5 forwards;
+ transform-origin:center;
+}
+@keyframes pullUpper{
+ 0%{transform:translateY(14px)}
+ 50%{transform:translateY(-10px)}
+ 100%{transform:translateY(-10px)}
+}
+@keyframes pullLower{
+ 0%{transform:translateY(-14px)}
+ 50%{transform:translateY(12px)}
+ 100%{transform:translateY(12px)}
+}
+
+.gold-shine{
+ animation:shinePulse 2s infinite alternate;
+}
+@keyframes shinePulse{
+ from{filter:brightness(1)}
+ to{filter:brightness(1.35) drop-shadow(0 0 6px #ffd700)}
+}
+
+.fingerprint-area{
+ margin-top:28px;
+ display:flex;flex-direction:column;
+ align-items:center;cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+}
+.fp-ring{
+ width:86px;height:86px;border-radius:50%;
+ border:2px solid #b30000;
+ background:radial-gradient(circle, #2b0000 0%, #0a0000 75%);
+ display:grid;place-items:center;
+ position:relative;
+ box-shadow:0 0 20px #ff000066, inset 0 0 15px #ff000044;
+ transition:all 0.3s ease;
+ animation:fpPulse 1.8s infinite;
+}
+@keyframes fpPulse{
+ 0%,100%{box-shadow:0 0 15px #ff000055, inset 0 0 10px #ff000033;transform:scale(1)}
+ 50%{box-shadow:0 0 30px #ff1a1acc, inset 0 0 20px #ff1a1a77;transform:scale(1.05)}
+}
+.fp-ring.scanning{
+ border-color:#ffd700;
+ box-shadow:0 0 35px #ffd700cc, inset 0 0 25px #ffd70088;
+ transform:scale(0.94);
+}
+.fp-icon{
+ width:46px;height:46px;stroke:#ff2a2a;
+ transition:stroke 0.3s ease;
+}
+.fp-ring.scanning .fp-icon{
+ stroke:#ffd700;
+}
+.scan-line{
+ position:absolute;left:12px;right:12px;height:2px;
+ background:#ff3333;box-shadow:0 0 8px #ff0000;
+ top:20%;opacity:0.85;
+ animation:laserScan 1.6s ease-in-out infinite;
+}
+@keyframes laserScan{
+ 0%,100%{top:20%}
+ 50%{top:78%}
+}
+.fp-text{
+ margin-top:14px;color:#ccc;
+ font-size:11px;letter-spacing:3px;
+ text-transform:uppercase;
+ animation:blinkText 1.6s infinite;
+}
+@keyframes blinkText{
+ 0%,100%{opacity:0.5}
+ 50%{opacity:1}
+}
+
 header{
  text-align:center;padding:65px 15px 35px;
  animation:bounceIn 1s ease-out;
@@ -32,7 +137,6 @@ header{
 h1{color:#e00000;font-size:clamp(35px,8vw,55px);letter-spacing:5px;text-shadow:0 0 15px red,0 0 35px #700}
 .subtitle{color:#aaa;letter-spacing:2px;font-size:12px}
 
-/* EFEK MEMANTUL SAAT GULIR KE BAWAH */
 @keyframes bounceIn{
  0%{opacity:0;transform:translateY(80px) scale(0.88)}
  55%{opacity:1;transform:translateY(-18px) scale(1.03)}
@@ -62,7 +166,6 @@ button{
 button:active{transform:scale(.96)}
 .center{text-align:center}
 
-/* TURNTABLE */
 .turntable{
  background:linear-gradient(145deg,#303030,#090909);
  padding:20px;border:3px solid #555;
@@ -93,7 +196,6 @@ button:active{transform:scale(.96)}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* PHOTO SINGLE */
 .gallery{
  display:flex;justify-content:center;
 }
@@ -103,7 +205,6 @@ button:active{transform:scale(.96)}
  image-orientation:from-image;
 }
 
-/* GIFS */
 .gifs{
  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
 }
@@ -120,10 +221,8 @@ button:active{transform:scale(.96)}
  50%{transform:rotate(2deg) scale(1.03)}
 }
 
-/* MESSAGE */
 #message{white-space:pre-wrap;line-height:1.9;color:#eee;font-size:15px}
 
-/* MONEY */
 .money{
  position:fixed;top:-80px;z-index:1;
  pointer-events:none;font-size:30px;
@@ -133,7 +232,6 @@ button:active{transform:scale(.96)}
  to{transform:translateY(115vh) rotate(800deg);opacity:0}
 }
 
-/* EFEK DARAH REALISTIS */
 .blood{
  position:fixed;top:-10px;z-index:3;pointer-events:none;
  width:var(--width);height:var(--height);left:var(--left);
@@ -168,112 +266,50 @@ button:active{transform:scale(.96)}
 
 <body>
 
-<header>
- <h1>DEAR GV1P</h1>
- <div class="subtitle">A LITTLE SOMETHING FOR YOU ♡</div>
-</header>
+<div id="introMouthScreen">
+ <div class="mouth-wrapper">
+  <svg viewBox="0 0 380 280" width="100%" height="100%">
+   <defs>
+    <linearGradient id="goldGrillz" x1="0%" y1="0%" x2="100%" y2="100%">
+     <stop offset="0%" stop-color="#fff099"/>
+     <stop offset="30%" stop-color="#ffd700"/>
+     <stop offset="65%" stop-color="#d49b00"/>
+     <stop offset="100%" stop-color="#ffe875"/>
+    </linearGradient>
+    <linearGradient id="lipGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+     <stop offset="0%" stop-color="#9e001c"/>
+     <stop offset="50%" stop-color="#610010"/>
+     <stop offset="100%" stop-color="#2e0007"/>
+    </linearGradient>
+    <linearGradient id="handGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+     <stop offset="0%" stop-color="#2c2c2c"/>
+     <stop offset="50%" stop-color="#141414"/>
+     <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+   </defs>
 
-<section>
- <h2>♫ MUSIC</h2>
- <div class="turntable">
-  <div class="lid">
-   <div class="deck" id="record">
-    <img src="IMG_4230.jpeg" alt="Album Cover">
-    <div class="arm"></div>
-   </div>
-  </div>
- </div>
- <div class="center">
-  <h3>YOUR FAVORITE SONG</h3>
-  <p>Something special for you.</p>
-  <audio id="audio" src="v24044gl0000d85bjcnog65mkn4okh1g.mp3"></audio>
-  <button onclick="toggleMusic()" id="playButton">▶ PLAY</button>
- </div>
-</section>
+   <!-- RONGGA MULUT & LIDAH -->
+   <path d="M 45 140 Q 190 45 335 140 Q 190 245 45 140 Z" fill="#140003"/>
+   <path d="M 115 188 Q 190 158 265 188 Q 190 218 115 188 Z" fill="#5c0011"/>
 
-<section>
- <h2>📸 PHOTO</h2>
- <div class="gallery">
-  <img src="IMG_4212.jpeg" alt="Photo 1">
- </div>
-</section>
+   <!-- GRILLZ GIGI EMAS ATAS: G V 1 P -->
+   <g class="upper-pull gold-shine">
+    <rect x="78" y="99" width="52" height="44" rx="10" fill="url(#goldGrillz)" stroke="#7a5200" stroke-width="2.5"/>
+    <text x="104" y="129" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#2b1a00" text-anchor="middle">G</text>
 
-<section>
- <h2>✉ A MESSAGE FOR YOU</h2>
- <div id="message">THANK YOU, BOSS GV1P, FOR SHARING SOME MONEY; I HOPE IT PROVES USEFUL. MAY THINGS BE MADE EASY AND SMOOTH FOR YOU, AND MAY YOU STAY IN GOOD HEALTH. GOD BLESS YOU, GV1P!</div>
-</section>
+    <rect x="134" y="97" width="52" height="47" rx="10" fill="url(#goldGrillz)" stroke="#7a5200" stroke-width="2.5"/>
+    <text x="160" y="129" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#2b1a00" text-anchor="middle">V</text>
 
-<section>
- <h2>🎞️ GIFS</h2>
- <div class="gifs">
-  <div class="gif"><img src="IMG_4233.gif" alt="GIF 1"></div>
- </div>
-</section>
+    <rect x="190" y="97" width="52" height="47" rx="10" fill="url(#goldGrillz)" stroke="#7a5200" stroke-width="2.5"/>
+    <text x="216" y="129" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#2b1a00" text-anchor="middle">1</text>
 
-<div class="footer">MADE IN BERLIN</div>
+    <rect x="246" y="99" width="52" height="44" rx="10" fill="url(#goldGrillz)" stroke="#7a5200" stroke-width="2.5"/>
+    <text x="272" y="129" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#2b1a00" text-anchor="middle">P</text>
+   </g>
 
-<script>
-const audio=document.getElementById("audio");
-const record=document.getElementById("record");
-const playButton=document.getElementById("playButton");
-
-function toggleMusic(){
- if(audio.paused){
-  audio.play().then(()=>{
-   record.classList.add("playing");
-   playButton.textContent="Ⅱ PAUSE";
-  }).catch(()=>{
-   alert("Pastikan file musik sudah di-upload.");
-  });
- }else{
-  audio.pause();
-  record.classList.remove("playing");
-  playButton.textContent="▶ PLAY";
- }
-}
-
-audio.onended=()=>{
- record.classList.remove("playing");
- playButton.textContent="▶ PLAY";
-};
-
-function makeMoney(){
- const money=document.createElement("div");
- money.className="money";
- money.textContent=["💵","💸","💵","💰"][Math.floor(Math.random()*4)];
- money.style.left=Math.random()*100+"vw";
- money.style.animationDuration=(3+Math.random()*4)+"s";
- document.body.appendChild(money);
- setTimeout(()=>money.remove(),8000);
-}
-setInterval(makeMoney,180);
-
-function makeBlood(){
- const blood=document.createElement("div");
- blood.className="blood";
- const size = 7 + Math.random()*7;
- blood.style.setProperty("--left",Math.random()*100+"vw");
- blood.style.setProperty("--width",size+"px");
- blood.style.setProperty("--height",(size*3.2 + Math.random()*35)+"px");
- const duration = 2.8 + Math.random()*3.2;
- blood.style.setProperty("--speed",duration+"s");
- document.body.appendChild(blood);
- setTimeout(()=>blood.remove(), duration*1000 + 200);
-}
-setInterval(makeBlood,220);
-
-const observer = new IntersectionObserver((entries) => {
- entries.forEach(entry => {
-  if(entry.isIntersecting){
-   entry.target.classList.add("show");
-  } else {
-   entry.target.classList.remove("show");
-  }
- });
-}, { threshold: 0.12 });
-
-document.querySelectorAll("section").forEach(sec => observer.observe(sec));
-</script>
-
-</body>
-</html>
+   <!-- BIBIR ATAS & TANGAN KIRI ATAS YANG MENARIK BIBIR -->
+   <g class="upper-pull">
+    <path d="M 30 140 C 85 70, 145 70, 168 87 C 180 95, 185 89, 190 89 C 195 89, 200 95, 212 87 C 235 70, 295 70, 350 140 C 285 107, 230 101, 190 101 C 150 101, 95 107, 30 140 Z" fill="url(#lipGrad)" stroke="#ff1a40" stroke-width="2"/>
+    
+    <!-- TANGAN ATAS (JARI TELUNJUK & TENGAH MENARIK BIBIR ATAS) -->
+    <g transform="translate(88, 8)">
