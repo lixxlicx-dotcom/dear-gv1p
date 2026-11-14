@@ -28,7 +28,6 @@ body:before{
  background:radial-gradient(circle at 50% 20%,#350000 0%,transparent 55%),linear-gradient(#080000,#000);
  z-index:-2;
 }
-/* GENANGAN DARAH DI ATAS LAYAR */
 body:after{
  content:"";position:fixed;top:0;left:0;right:0;height:14px;
  background:linear-gradient(180deg,#4a0000 0%,#9e0000 65%,transparent 100%);
@@ -42,7 +41,6 @@ header{
 h1{color:#e00000;font-size:clamp(35px,8vw,55px);letter-spacing:5px;text-shadow:0 0 15px red,0 0 35px #700}
 .subtitle{color:#aaa;letter-spacing:2px;font-size:12px}
 
-/* EFEK MEMANTUL SAAT GULIR KE BAWAH */
 @keyframes bounceIn{
  0%{opacity:0;transform:translateY(80px) scale(0.88)}
  55%{opacity:1;transform:translateY(-18px) scale(1.03)}
@@ -56,7 +54,7 @@ section{
  background:#100909;border:1px solid #650000;
  border-radius:18px;box-shadow:0 0 20px #50000044;
  position:relative;z-index:2;
- opacity:0;
+ opacity:1;
 }
 section.show{
  animation:bounceIn 0.95s ease-out forwards;
@@ -104,9 +102,7 @@ button:active{transform:scale(.96)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* PHOTO SINGLE */
-.gallery{
- display:flex;justify-content:center;
-}
+.gallery{display:flex;justify-content:center}
 .gallery img{
  width:100%;max-width:340px;height:360px;object-fit:cover;
  border-radius:14px;border:1px solid #900;
@@ -114,23 +110,14 @@ button:active{transform:scale(.96)}
 }
 
 /* GIFS */
-.gifs{
- display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
-}
-.gif{
- overflow:hidden;border-radius:13px;
- background:#200909;border:1px solid #800;
-}
-.gif img{
- width:100%;height:160px;object-fit:cover;
- display:block;animation:wiggle 1.5s infinite;
-}
+.gifs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.gif{overflow:hidden;border-radius:13px;background:#200909;border:1px solid #800}
+.gif img{width:100%;height:160px;object-fit:cover;display:block;animation:wiggle 1.5s infinite}
 @keyframes wiggle{
  0%,100%{transform:rotate(-2deg)}
  50%{transform:rotate(2deg) scale(1.03)}
 }
 
-/* MESSAGE */
 #message{white-space:pre-wrap;line-height:1.9;color:#eee;font-size:15px}
 
 /* MONEY */
@@ -168,13 +155,10 @@ button:active{transform:scale(.96)}
 /* EFEK TEMBAKAN & KACA PECAH */
 .muzzle-flash{
  position:fixed;inset:0;pointer-events:none;z-index:9;
- background:radial-gradient(circle at var(--fx) var(--fy), rgba(255,235,170,0.45) 0%, rgba(255,110,20,0.18) 35%, transparent 70%);
+ background:radial-gradient(circle at var(--fx) var(--fy), rgba(255,235,170,0.5) 0%, rgba(255,110,20,0.2) 35%, transparent 70%);
  animation:flashOut 0.14s ease-out forwards;
 }
-@keyframes flashOut{
- 0%{opacity:1}
- 100%{opacity:0}
-}
+@keyframes flashOut{0%{opacity:1}100%{opacity:0}}
 
 .bullet-tracer{
  position:fixed;height:3px;width:190px;
@@ -182,6 +166,7 @@ button:active{transform:scale(.96)}
  background:linear-gradient(90deg, transparent 0%, rgba(255,140,0,0.4) 40%, #ffea80 85%, #ffffff 100%);
  box-shadow:0 0 12px #ff9900, 0 0 24px #ff4500;
  transform-origin:right center;
+ transition:transform 0.075s linear;
 }
 
 .bullet-hole{
@@ -221,10 +206,7 @@ button:active{transform:scale(.96)}
  100%{transform:translate(var(--sx), var(--sy)) scale(0);opacity:0}
 }
 
-.footer{
- text-align:center;padding:35px;color:#777;
- font-size:12px;letter-spacing:3px;
-}
+.footer{text-align:center;padding:35px;color:#777;font-size:12px;letter-spacing:3px}
 @media(max-width:400px){
  .deck{width:165px;height:165px}
  section{padding:17px}
@@ -283,45 +265,52 @@ const audio=document.getElementById("audio");
 const record=document.getElementById("record");
 const playButton=document.getElementById("playButton");
 
-/* AUDIO CONTEXT UNTUK SUARA TEMBAKAN & KACA PECAH REALISTIS */
-let audioCtx = null;
+let audioCtx=null;
 function initAudio(){
  if(!audioCtx){
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if(AudioContext) audioCtx = new AudioContext();
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(AC)audioCtx=new AC();
  }
- if(audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+ if(audioCtx&&audioCtx.state==="suspended")audioCtx.resume();
 }
-document.addEventListener("pointerdown", initAudio, {once:true});
+document.addEventListener("pointerdown",initAudio,{once:true});
 
 function playGunshotAndGlass(){
- if(!audioCtx || audioCtx.state !== "running") return;
- const now = audioCtx.currentTime;
-
- /* 1. Suara ledakan tembakan (Low punch + crack noise) */
- const osc = audioCtx.createOscillator();
- const oscGain = audioCtx.createGain();
- osc.type = "triangle";
- osc.frequency.setValueAtTime(160, now);
- osc.frequency.exponentialRampToValueAtTime(28, now + 0.18);
- oscGain.gain.setValueAtTime(0.45, now);
- oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+ if(!audioCtx||audioCtx.state!=="running")return;
+ const now=audioCtx.currentTime;
+ const osc=audioCtx.createOscillator();
+ const oscGain=audioCtx.createGain();
+ osc.type="triangle";
+ osc.frequency.setValueAtTime(160,now);
+ osc.frequency.exponentialRampToValueAtTime(28,now+0.18);
+ oscGain.gain.setValueAtTime(0.45,now);
+ oscGain.gain.exponentialRampToValueAtTime(0.001,now+0.22);
  osc.connect(oscGain);
  oscGain.connect(audioCtx.destination);
  osc.start(now);
- osc.stop(now + 0.22);
+ osc.stop(now+0.22);
 
- const bufferSize = audioCtx.sampleRate * 0.35;
- const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
- const output = noiseBuffer.getChannelData(0);
- for(let i = 0; i < bufferSize; i++){
-  output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.06));
+ const bufferSize=audioCtx.sampleRate*0.35;
+ const noiseBuffer=audioCtx.createBuffer(1,bufferSize,audioCtx.sampleRate);
+ const output=noiseBuffer.getChannelData(0);
+ for(let i=0;i<bufferSize;i++){
+  output[i]=(Math.random()*2-1)*Math.exp(-i/(audioCtx.sampleRate*0.06));
  }
- const whiteNoise = audioCtx.createBufferSource();
- whiteNoise.buffer = noiseBuffer;
- const filter = audioCtx.createBiquadFilter();
- filter.type = "bandpass";
- filter.frequency.setValueAtTime(1100, now);
- const noiseGain = audioCtx.createGain();
- noiseGain.gain.setValueAtTime(0.4, now);
- noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+ const whiteNoise=audioCtx.createBufferSource();
+ whiteNoise.buffer=noiseBuffer;
+ const filter=audioCtx.createBiquadFilter();
+ filter.type="bandpass";
+ filter.frequency.setValueAtTime(1100,now);
+ const noiseGain=audioCtx.createGain();
+ noiseGain.gain.setValueAtTime(0.4,now);
+ noiseGain.gain.exponentialRampToValueAtTime(0.001,now+0.35);
+ whiteNoise.connect(filter);
+ filter.connect(noiseGain);
+ noiseGain.connect(audioCtx.destination);
+ whiteNoise.start(now);
+
+ for(let i=0;i<6;i++){
+  const delay=0.04+Math.random()*0.16;
+  const gOsc=audioCtx.createOscillator();
+  const gGain=audioCtx.createGain();
+  gOsc.type="sine";
